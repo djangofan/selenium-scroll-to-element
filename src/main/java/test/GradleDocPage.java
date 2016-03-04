@@ -57,9 +57,14 @@ public class GradleDocPage
     {
         List<String> bounds = getBoundedRectangleOfElement(we);
         Long totalInnerPageHeight = getViewPortHeight(driver);
-
         JavascriptExecutor je = (JavascriptExecutor) driver;
         je.executeScript("window.scrollTo(0, " + (Integer.parseInt(bounds.get(1)) - (totalInnerPageHeight/2)) + ");");
+        outlineElement(we);
+    }
+
+    public void outlineElement(WebElement we)
+    {
+        JavascriptExecutor je = (JavascriptExecutor) driver;
         je.executeScript("arguments[0].style.outline = \"thick solid #0000FF\";", we);
     }
 
