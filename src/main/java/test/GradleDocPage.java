@@ -34,12 +34,6 @@ public class GradleDocPage
         driver.get(GRADLE_DOC_PAGE_URL);
     }
 
-    public Long getTotalPageHeight(WebDriver driver)
-    {
-        JavascriptExecutor je = (JavascriptExecutor) driver;
-        return (Long) je.executeScript("return Math.max(document.documentElement.clientHeight, window.innerHeight || 0);");
-    }
-
     public Long getViewPortHeight(WebDriver driver)
     {
         JavascriptExecutor je = (JavascriptExecutor) driver;
@@ -59,20 +53,9 @@ public class GradleDocPage
         return bounds;
     }
 
-    public boolean isElementInView(WebElement we)
-    {
-        JavascriptExecutor je = (JavascriptExecutor) driver;
-        Boolean isInView = (Boolean) je.executeScript("var rect = arguments[0].getBoundingClientRect(); " +
-                " return rect.bottom < 0 || rect.right < 0 || rect.left > window.innerWidth || rect.top > window.innerHeight;", we);
-        return isInView.booleanValue();
-    }
-
     public void scrollToElementAndCenterVertically(WebElement we)
     {
-        Boolean isInView = isElementInView(we);
         List<String> bounds = getBoundedRectangleOfElement(we);
-
-        Long totalPageHeight = getTotalPageHeight(driver);
         Long totalInnerPageHeight = getViewPortHeight(driver);
 
         JavascriptExecutor je = (JavascriptExecutor) driver;
